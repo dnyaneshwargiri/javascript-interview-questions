@@ -17,3 +17,27 @@ function Student(name,roll){
  }
 console.log(new Student('dny',198).id)//return undefined
 //Q. What is prototype property?
+
+
+//============================= this vs private variable
+
+function Student(name){
+    var _name=name
+    this.getName = ()=>{
+        return this._name
+    }
+}
+var s=new Student('Dnyaneshwar')
+s._name='xyz'
+console.log(s.getName())//'xyz'
+VM442:9 xyz
+undefined
+function Student(name){
+    var _name=name
+    this.getName = ()=>{
+        return _name
+    }
+}
+var s=new Student('Dnyaneshwar')
+s._name='xyz'
+console.log(s.getName())//'Dnyaneshwar'
