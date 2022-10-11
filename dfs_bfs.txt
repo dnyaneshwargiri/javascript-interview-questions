@@ -1,0 +1,57 @@
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+console.log("Welcome to Programiz!");
+const airportsString='PHX LAX JKA KUA'
+const airports=airportsString.split(' ')
+const routes=[['PHX','JKA'],['JKA','LAX'], ['LAX','PHX'],['KUA','LAX']]
+const adjacencyList=new Map()
+function addNode(airport){
+    adjacencyList.set(airport,[])
+}
+//add edge undirected
+function addEdge(origin,destination){
+    adjacencyList.get(origin).push(destination);
+    adjacencyList.get(destination).push(origin);
+}
+//BFS
+function BFS(start){
+    const queue=[]
+    queue.push(start)
+    const visited=new Set()
+    let steps=0
+    while(queue.length>0){
+        const airport=queue.shift();
+        steps++
+        const destinations=adjacencyList.get(airport)
+        for(const destination of destinations){
+            if(destination === 'JKA') console.log(`found it in ${steps}`)
+            if(!visited.has(destination)){
+                visited.add(destination)
+                queue.push(destination)
+            }
+        }
+    }
+}
+//DFS
+function DFS(airport,steps,visited=new Set()){
+  const destinations=adjacencyList.get(airport)
+  steps++
+  for(const destination of destinations){
+      if(destination ==='JKA') {
+          console.log(`found it in ${steps}`);
+          return;
+      }
+      if(!visited.has(destination)){
+          DFS(destination,steps,visited)
+      }
+  }
+}
+airports.forEach(addNode);
+routes.forEach(route=>addEdge(...route))
+console.log(adjacencyList)
+//BFS('PHX')
+DFS('PHX',0, new Set())
